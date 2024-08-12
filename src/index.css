@@ -5,6 +5,7 @@ body {
 
 .wrapper {
   display: flex;
+  gap: 30px;
   flex-direction: column;
   align-items: center;
 }

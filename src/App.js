@@ -7,6 +7,11 @@ function App() {
   const date = new Date();
   date.setDate(date.getDate() + count);
 
+  const handleReset = () => {
+    setCount(0);
+    setStep(1);
+  };
+
   const handleCountPlus = () => {
     step && setCount((prevState) => prevState + step);
   };
@@ -15,31 +20,28 @@ function App() {
     step && setCount((prevState) => prevState - step);
   };
 
-  const handleStepPlus = () => {
-    setStep((prevState) => prevState + 1);
-  };
-
-  const handleStepMinus = () => {
-    setStep((prevState) => prevState - 1);
-  };
-
   return (
     <div className="wrapper">
       <div className="step">
-        <div className="counter-button" onClick={handleStepMinus}>
-          <p>-</p>
-        </div>
-        <p>Step: {step}</p>
-        <div className="counter-button" onClick={handleStepPlus}>
-          <p>+</p>
-        </div>
+        <input
+          onChange={(e) => setStep(Number(e.target.value))}
+          type="range"
+          value={step}
+          min={1}
+          max={10}
+        />
+        <span>{step}</span>
       </div>
 
       <div className="count">
         <div className="counter-button" onClick={handleCountMinus}>
           <p>-</p>
         </div>
-        <p>Count: {count}</p>
+        <input
+          type="number"
+          onChange={(e) => setCount(Number(e.target.value))}
+          value={count}
+        />
         <div className="counter-button" onClick={handleCountPlus}>
           <p>+</p>
         </div>
@@ -55,6 +57,11 @@ function App() {
                 : ``}
         </span>
       </p>
+      {(count !== 0 || step !== 1) && (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      )}
     </div>
   );
 }
